@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  DecodeThing
+//  DecoderThing
 //
 //  Created by Duncan Wallace on 12/2/24.
 //

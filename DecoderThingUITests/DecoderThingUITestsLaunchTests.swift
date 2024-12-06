@@ -1,13 +1,13 @@
 //
-//  DecodeThingUITestsLaunchTests.swift
-//  DecodeThingUITests
+//  DecoderThingUITestsLaunchTests.swift
+//  DecoderThingUITests
 //
 //  Created by Duncan Wallace on 12/2/24.
 //
 
 import XCTest
 
-final class DecodeThingUITestsLaunchTests: XCTestCase {
+final class DecoderThingUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

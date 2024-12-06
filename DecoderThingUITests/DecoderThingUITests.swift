@@ -1,13 +1,13 @@
 //
-//  DecodeThingUITests.swift
-//  DecodeThingUITests
+//  DecoderThingUITests.swift
+//  DecoderThingUITests
 //
 //  Created by Duncan Wallace on 12/2/24.
 //
 
 import XCTest
 
-final class DecodeThingUITests: XCTestCase {
+final class DecoderThingUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

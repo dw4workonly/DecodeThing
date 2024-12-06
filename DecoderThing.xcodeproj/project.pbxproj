@@ -24,25 +24,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D5EA7D8D2CFE8CC9003465CE /* DecodeThing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecodeThing.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5EA7D9D2CFE8CCA003465CE /* DecodeThingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecodeThingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5EA7DA72CFE8CCA003465CE /* DecodeThingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecodeThingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5EA7D8D2CFE8CC9003465CE /* DecoderThing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecoderThing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5EA7D9D2CFE8CCA003465CE /* DecoderThingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecoderThingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5EA7DA72CFE8CCA003465CE /* DecoderThingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecoderThingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D5EA7D8F2CFE8CC9003465CE /* DecodeThing */ = {
+		D5EA7D8F2CFE8CC9003465CE /* DecoderThing */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = DecodeThing;
+			path = DecoderThing;
 			sourceTree = "<group>";
 		};
-		D5EA7DA02CFE8CCA003465CE /* DecodeThingTests */ = {
+		D5EA7DA02CFE8CCA003465CE /* DecoderThingTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = DecodeThingTests;
+			path = DecoderThingTests;
 			sourceTree = "<group>";
 		};
-		D5EA7DAA2CFE8CCA003465CE /* DecodeThingUITests */ = {
+		D5EA7DAA2CFE8CCA003465CE /* DecoderThingUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = DecodeThingUITests;
+			path = DecoderThingUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		D5EA7D842CFE8CC9003465CE = {
 			isa = PBXGroup;
 			children = (
-				D5EA7D8F2CFE8CC9003465CE /* DecodeThing */,
-				D5EA7DA02CFE8CCA003465CE /* DecodeThingTests */,
-				D5EA7DAA2CFE8CCA003465CE /* DecodeThingUITests */,
+				D5EA7D8F2CFE8CC9003465CE /* DecoderThing */,
+				D5EA7DA02CFE8CCA003465CE /* DecoderThingTests */,
+				D5EA7DAA2CFE8CCA003465CE /* DecoderThingUITests */,
 				D5EA7D8E2CFE8CC9003465CE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		D5EA7D8E2CFE8CC9003465CE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5EA7D8D2CFE8CC9003465CE /* DecodeThing.app */,
-				D5EA7D9D2CFE8CCA003465CE /* DecodeThingTests.xctest */,
-				D5EA7DA72CFE8CCA003465CE /* DecodeThingUITests.xctest */,
+				D5EA7D8D2CFE8CC9003465CE /* DecoderThing.app */,
+				D5EA7D9D2CFE8CCA003465CE /* DecoderThingTests.xctest */,
+				D5EA7DA72CFE8CCA003465CE /* DecoderThingUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D5EA7D8C2CFE8CC9003465CE /* DecodeThing */ = {
+		D5EA7D8C2CFE8CC9003465CE /* DecoderThing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5EA7DB12CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecodeThing" */;
+			buildConfigurationList = D5EA7DB12CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecoderThing" */;
 			buildPhases = (
 				D5EA7D892CFE8CC9003465CE /* Sources */,
 				D5EA7D8A2CFE8CC9003465CE /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D5EA7D8F2CFE8CC9003465CE /* DecodeThing */,
+				D5EA7D8F2CFE8CC9003465CE /* DecoderThing */,
 			);
-			name = DecodeThing;
+			name = DecoderThing;
 			packageProductDependencies = (
 			);
 			productName = DecodeThing;
-			productReference = D5EA7D8D2CFE8CC9003465CE /* DecodeThing.app */;
+			productReference = D5EA7D8D2CFE8CC9003465CE /* DecoderThing.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D5EA7D9C2CFE8CCA003465CE /* DecodeThingTests */ = {
+		D5EA7D9C2CFE8CCA003465CE /* DecoderThingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5EA7DB42CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecodeThingTests" */;
+			buildConfigurationList = D5EA7DB42CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecoderThingTests" */;
 			buildPhases = (
 				D5EA7D992CFE8CCA003465CE /* Sources */,
 				D5EA7D9A2CFE8CCA003465CE /* Frameworks */,
@@ -131,18 +131,18 @@
 				D5EA7D9F2CFE8CCA003465CE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D5EA7DA02CFE8CCA003465CE /* DecodeThingTests */,
+				D5EA7DA02CFE8CCA003465CE /* DecoderThingTests */,
 			);
-			name = DecodeThingTests;
+			name = DecoderThingTests;
 			packageProductDependencies = (
 			);
 			productName = DecodeThingTests;
-			productReference = D5EA7D9D2CFE8CCA003465CE /* DecodeThingTests.xctest */;
+			productReference = D5EA7D9D2CFE8CCA003465CE /* DecoderThingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D5EA7DA62CFE8CCA003465CE /* DecodeThingUITests */ = {
+		D5EA7DA62CFE8CCA003465CE /* DecoderThingUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5EA7DB72CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecodeThingUITests" */;
+			buildConfigurationList = D5EA7DB72CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecoderThingUITests" */;
 			buildPhases = (
 				D5EA7DA32CFE8CCA003465CE /* Sources */,
 				D5EA7DA42CFE8CCA003465CE /* Frameworks */,
@@ -154,13 +154,13 @@
 				D5EA7DA92CFE8CCA003465CE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D5EA7DAA2CFE8CCA003465CE /* DecodeThingUITests */,
+				D5EA7DAA2CFE8CCA003465CE /* DecoderThingUITests */,
 			);
-			name = DecodeThingUITests;
+			name = DecoderThingUITests;
 			packageProductDependencies = (
 			);
 			productName = DecodeThingUITests;
-			productReference = D5EA7DA72CFE8CCA003465CE /* DecodeThingUITests.xctest */;
+			productReference = D5EA7DA72CFE8CCA003465CE /* DecoderThingUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D5EA7D882CFE8CC9003465CE /* Build configuration list for PBXProject "DecodeThing" */;
+			buildConfigurationList = D5EA7D882CFE8CC9003465CE /* Build configuration list for PBXProject "DecoderThing" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D5EA7D8C2CFE8CC9003465CE /* DecodeThing */,
-				D5EA7D9C2CFE8CCA003465CE /* DecodeThingTests */,
-				D5EA7DA62CFE8CCA003465CE /* DecodeThingUITests */,
+				D5EA7D8C2CFE8CC9003465CE /* DecoderThing */,
+				D5EA7D9C2CFE8CCA003465CE /* DecoderThingTests */,
+				D5EA7DA62CFE8CCA003465CE /* DecoderThingUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		D5EA7D9F2CFE8CCA003465CE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D5EA7D8C2CFE8CC9003465CE /* DecodeThing */;
+			target = D5EA7D8C2CFE8CC9003465CE /* DecoderThing */;
 			targetProxy = D5EA7D9E2CFE8CCA003465CE /* PBXContainerItemProxy */;
 		};
 		D5EA7DA92CFE8CCA003465CE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D5EA7D8C2CFE8CC9003465CE /* DecodeThing */;
+			target = D5EA7D8C2CFE8CC9003465CE /* DecoderThing */;
 			targetProxy = D5EA7DA82CFE8CCA003465CE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -395,7 +395,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DecodeThing/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DecoderThing/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -423,7 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DecodeThing/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"DecoderThing/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -458,7 +458,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DecodeThing.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DecodeThing";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DecoderThing.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DecoderThing";
 			};
 			name = Debug;
 		};
@@ -476,7 +476,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DecodeThing.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DecodeThing";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DecoderThing.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DecoderThing";
 			};
 			name = Release;
 		};
@@ -515,7 +515,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5EA7D882CFE8CC9003465CE /* Build configuration list for PBXProject "DecodeThing" */ = {
+		D5EA7D882CFE8CC9003465CE /* Build configuration list for PBXProject "DecoderThing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5EA7DAF2CFE8CCA003465CE /* Debug */,
@@ -524,7 +524,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5EA7DB12CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecodeThing" */ = {
+		D5EA7DB12CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecoderThing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5EA7DB22CFE8CCA003465CE /* Debug */,
@@ -533,7 +533,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5EA7DB42CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecodeThingTests" */ = {
+		D5EA7DB42CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecoderThingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5EA7DB52CFE8CCA003465CE /* Debug */,
@@ -542,7 +542,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5EA7DB72CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecodeThingUITests" */ = {
+		D5EA7DB72CFE8CCA003465CE /* Build configuration list for PBXNativeTarget "DecoderThingUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5EA7DB82CFE8CCA003465CE /* Debug */,
