@@ -7,6 +7,7 @@
 
 
 require 'octokit'
+require 'jira-ruby'
 
 require_relative "functions/readable_time"
 require_relative "functions/build_number"
@@ -407,7 +408,7 @@ platform :ios do
   end
 
   ##################################################
-  #  Oktakit Release Processing Lane
+  #  Oktakit Release Processing Lanes
   ##################################################
   desc "Run Get all pull requests"
   lane :open_pull_requests do |options|
@@ -417,4 +418,23 @@ platform :ios do
     puts "Open pull requests in repo: #{repo_name} are #{response}."
   end
 
-end
+  desc "Run Get list of jira tickets"
+  
+  lane :jira_tickets do |options|
+    project_id = ENV["PROJECT_ID"]
+    ticket_status = ENV["TICKET_STATUS"]
+    api_token = ENV["JIRA_API_TOKEN"]
+    params = {
+      :site               => 'https://dw4workonly.atlassian.net:443/',
+      :context_path       => '',
+      :auth_type          => :basic,
+      :default_headers    => { 'Authorization' => "Bearer #{api_token}" }
+    }
+    client = JIRA::Client.new(params)
+
+    project = client.Project.find('project_id')
+
+    # project.issues.each do |issue|
+    #   puts "#{issue.id} - #{issue.summary} - #{issue.status}"
+    end
+  end
