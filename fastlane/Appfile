@@ -1,4 +1,4 @@
-app_identifier("com.dw4workonly.fastimage") # The bundle identifier of your app
+app_identifier("com.dw4workonly.decoderthing") # The bundle identifier of your app
 apple_id("dw4workonly@gmail.com") # Your Apple email address
 
 itc_team_id("HN3MSBG9DP") # App Store Connect Team ID
