@@ -1,9 +1,12 @@
 #!/usr/bin/env groovy
 #
 #   Fastfile
-#   sImageViewer
-#   Created by Duncan Wallace 08/21/2020
-#   Copyright © 2020. Duncwa LLC.  All rights reserved
+#   DecoderThing
+#   Created by Duncan Wallace 12/08/24
+#   Copyright © 2024. Duncwa LLC.  All rights reserved
+
+
+require 'octokit'
 
 require_relative "functions/readable_time"
 require_relative "functions/build_number"
@@ -402,4 +405,16 @@ platform :ios do
       default_payloads: []
     )
   end
+
+  ##################################################
+  #  Oktakit Release Processing Lane
+  ##################################################
+  desc "Run Get all pull requests"
+  lane :open_pull_requests do |options|
+    repo_name = ENV["REPOSITORY_NAME"]
+    client = Octokit::Client.new(access_token: ENV["GITHUB_PAT_TOKEN"])
+    response = client.pull_requests(repo_name, :state => 'open')
+    puts "Open pull requests in repo: #{repo_name} are #{response}."
+  end
+
 end
