@@ -67,7 +67,7 @@ jobs:
           command: bundle exec fastlane test_ios_qa
       - store_artifacts:
           path: output
-  test-ruby:
+  test_ruby:
     # Install gems, run rspec tests
     docker:
       - image: cimg/ruby:3.2-node
@@ -114,11 +114,11 @@ noop-filters: &noop-filters
 workflows:
   pra-build-and-test:
     jobs:
-      - test-ios-pra:
+      - test_ios_pra:
       <<: *developer-filters
   ruby-build-and-test:
     jobs:
-      - test-ruby:
+      - test_ruby:
       <<: *staging-filters
     # - deploy:
     #     requires:
