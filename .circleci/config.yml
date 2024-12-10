@@ -39,7 +39,7 @@ parameters:
     default: /release\/[a-zA-z0-9.-]+/
 
 jobs:
-  test_ios_pra:
+  test-ios-pra:
     macos:
       xcode: 16.1
     resource_class: macos.m1.medium.gen1
@@ -53,7 +53,7 @@ jobs:
           command: bundle exec fastlane test_ios_pra
       - store_artifacts:
           path: output
-  test_ios_qa:
+  test-ios-qa:
     macos:
       xcode: 16.1
     resource_class: macos.m1.medium.gen1
@@ -86,7 +86,6 @@ jobs:
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
-
 developer-filters: &developer-filters
   filters:
     tags:
@@ -114,11 +113,11 @@ noop-filters: &noop-filters
 workflows:
   pra-build-and-test:
     jobs:
-      - test_ios_pra:
+      - test-ios-pra:
       <<: *developer-filters
   ruby-build-and-test:
     jobs:
-      - test_ruby:
+      - test-ruby:
       <<: *staging-filters
     # - deploy:
     #     requires:
