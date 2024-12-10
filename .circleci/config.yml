@@ -30,13 +30,13 @@ parameters:
     default: "DecoderThing"
   developer_branch_regex:
     type: string
-    default: "/[A-Za-z]+-\d+-[A-Za-z0-9-]+|bugfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|hotfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|feature\/[A-Za-z]+-\d+-[A-Za-z0-9-]+/"
+    default: /[A-Za-z]+-\d+-[A-Za-z0-9-]+|bugfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|hotfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|feature\/[A-Za-z]+-\d+-[A-Za-z0-9-]+/
   staging_branch_regex:
     type: string
-    default: "/staging\/[a-zA-z0-9.-]+/"
+    default: /staging\/[a-zA-z0-9.-]+/
   release_branch_regex:
     type: string
-    default: "/release\/[a-zA-z0-9.-]+/"
+    default: /release\/[a-zA-z0-9.-]+/
 
 jobs:
   test_ios_pra:
