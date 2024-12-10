@@ -1,9 +1,72 @@
 # This config was automatically generated from your source code
 # Stacks detected: deps:ruby:.
 version: 2.1
+
 orbs:
+  python: circleci/python@2.1.1
   ruby: circleci/ruby@2.0.1
+  slack: circleci/slack@4.13.3
+
+aliases:
+  - &developer-filters
+    filters:
+      tags:
+        only: /.*/
+  - &staging-filters
+    filters:
+      tags:
+        only: /\d+\.\d+\.\d+-beta\d+/
+  - &production-filters
+    filters:
+      tags:
+        only: /^\d+\.\d+\.\d$/
+
+parameters:
+  working_directory:
+    type: string
+    default: "~/"
+  repo:
+    type: string
+    default: "DecoderThing"
+  developer_branch_regex:
+    type: string
+    default: "/[A-Za-z]+-\d+-[A-Za-z0-9-]+|bugfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|hotfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|feature\/[A-Za-z]+-\d+-[A-Za-z0-9-]+/"
+  staging_branch_regex:
+    type: string
+    default: "/staging\/[a-zA-z0-9.-]+/"
+  release_branch_regex:
+    type: string
+    default: "/release\/[a-zA-z0-9.-]+/"
+
 jobs:
+  test_ios_pra:
+    macos:
+      xcode: 16.1
+    resource_class: macos.m1.medium.gen1
+    steps:
+      - checkout:
+      - run:
+          name: Build Prep for iOS
+          command: bundle install
+      - run:
+          name: test_ios_pra Lane
+          command: bundle exec fastlane test_ios_pra
+      - store_artifacts:
+          path: output
+  test_ios_qa:
+    macos:
+      xcode: 16.1
+    resource_class: macos.m1.medium.gen1
+    steps:
+      - checkout:
+      - run:
+          name: Build Prep for iOS
+          command: bundle install
+      - run:
+          name: test_ios_qa Lane
+          command: bundle exec fastlane test_ios_qa
+      - store_artifacts:
+          path: output
   test-ruby:
     # Install gems, run rspec tests
     docker:
@@ -23,10 +86,44 @@ jobs:
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
+
+developer-filters: &developer-filters
+  filters:
+    tags:
+      ignore: /*/
+    branches:
+      only: << pipeline.parameters.developer_branch_regex >>
+staging-filters: &staging-filters
+  filters:
+    tags:
+      ignore: /*/
+    branches:
+      only: << pipeline.parameters.staging_branch_regex >>
+production-filters: &production-filters
+  filters:
+    tags:
+      ignore: /*/
+    branches:
+      only: << pipeline.parameters.release_branch_regex >>
+noop-filters: &noop-filters
+  filters:
+    branches:
+      only:
+        - << pipeline.parameters.staging_branch_regex >>
+        - << pipeline.parameters.release_branch+_regex >>
 workflows:
-  build-and-test:
+  pra-build-and-test:
     jobs:
-      - test-ruby
+      - test-ios-pra:
+      <<: *developer-filters
+  ruby-build-and-test:
+    jobs:
+      - test-ruby:
+      <<: *staging-filters
     # - deploy:
     #     requires:
     #       - test-ruby
+  No-Operation:
+    jobs:
+      - noop:
+          <<: *noop-filters
