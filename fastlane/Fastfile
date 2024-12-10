@@ -7,10 +7,11 @@
 
 
 require 'octokit'
-require 'jira-ruby'
+
 
 require_relative "functions/readable_time"
 require_relative "functions/build_number"
+require_relative "functions/get_jira_tickets"
 
 default_platform(:ios)
 platform :ios do
@@ -419,22 +420,7 @@ platform :ios do
   end
 
   desc "Run Get list of jira tickets"
-  
   lane :jira_tickets do |options|
-    project_id = ENV["PROJECT_ID"]
-    ticket_status = ENV["TICKET_STATUS"]
-    api_token = ENV["JIRA_API_TOKEN"]
-    params = {
-      :site               => 'https://dw4workonly.atlassian.net:443/',
-      :context_path       => '',
-      :auth_type          => :basic,
-      :default_headers    => { 'Authorization' => "Bearer #{api_token}" }
-    }
-    client = JIRA::Client.new(params)
-
-    project = client.Project.find('project_id')
-
-    # project.issues.each do |issue|
-    #   puts "#{issue.id} - #{issue.summary} - #{issue.status}"
-    end
+    get_jira_tickets()
   end
+end
