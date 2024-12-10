@@ -1,128 +1,45 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:ruby:.
+# .circleci/config.yml
 version: 2.1
-
-orbs:
-  python: circleci/python@2.1.1
-  ruby: circleci/ruby@2.0.1
-  slack: circleci/slack@4.13.3
-
-aliases:
-  - &developer-filters
-    filters:
-      tags:
-        only: /.*/
-  - &staging-filters
-    filters:
-      tags:
-        only: /\d+\.\d+\.\d+-beta\d+/
-  - &production-filters
-    filters:
-      tags:
-        only: /^\d+\.\d+\.\d$/
-
-parameters:
-  working_directory:
-    type: string
-    default: "~/"
-  repo:
-    type: string
-    default: "DecoderThing"
-  developer_branch_regex:
-    type: string
-    default: /[A-Za-z]+-\d+-[A-Za-z0-9-]+|bugfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|hotfix\/[A-Za-z]+-\d+-[A-Za-z0-9-]+|feature\/[A-Za-z]+-\d+-[A-Za-z0-9-]+/
-  staging_branch_regex:
-    type: string
-    default: /staging\/[a-zA-z0-9.-]+/
-  release_branch_regex:
-    type: string
-    default: /release\/[a-zA-z0-9.-]+/
-
 jobs:
-  test-ios-pra:
+  build-and-test:
     macos:
-      xcode: 16.1
-    resource_class: macos.m1.medium.gen1
+      xcode: 16.1.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
     steps:
-      - checkout:
+      - checkout
+      - run: bundle install
       - run:
-          name: Build Prep for iOS
-          command: bundle install
-      - run:
-          name: test_ios_pra Lane
+          name: Fastlane
           command: bundle exec fastlane test_ios_pra
       - store_artifacts:
           path: output
-  test-ios-qa:
+      - store_test_results:
+          path: output/scan
+
+  adhoc:
     macos:
-      xcode: 16.1
-    resource_class: macos.m1.medium.gen1
+      xcode: 16.1.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: adhoc
     steps:
-      - checkout:
+      - checkout
+      - run: bundle install
       - run:
-          name: Build Prep for iOS
-          command: bundle install
-      - run:
-          name: test_ios_qa Lane
+          name: Fastlane
           command: bundle exec fastlane test_ios_qa
       - store_artifacts:
           path: output
-  test_ruby:
-    # Install gems, run rspec tests
-    docker:
-      - image: cimg/ruby:3.2-node
-    environment:
-      RAILS_ENV: test
-    steps:
-      - checkout
-      - ruby/install-deps
-      - ruby/rspec-test
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
-developer-filters: &developer-filters
-  filters:
-    tags:
-      ignore: /*/
-    branches:
-      only: << pipeline.parameters.developer_branch_regex >>
-staging-filters: &staging-filters
-  filters:
-    tags:
-      ignore: /*/
-    branches:
-      only: << pipeline.parameters.staging_branch_regex >>
-production-filters: &production-filters
-  filters:
-    tags:
-      ignore: /*/
-    branches:
-      only: << pipeline.parameters.release_branch_regex >>
-noop-filters: &noop-filters
-  filters:
-    branches:
-      only:
-        - << pipeline.parameters.staging_branch_regex >>
-        - << pipeline.parameters.release_branch+_regex >>
+
 workflows:
-  pra-build-and-test:
+  build-test-adhoc:
     jobs:
-      - test-ios-pra:
-      <<: *developer-filters
-  ruby-build-and-test:
-    jobs:
-      - test-ruby:
-      <<: *staging-filters
-    # - deploy:
-    #     requires:
-    #       - test-ruby
-  No-Operation:
-    jobs:
-      - noop:
-          <<: *noop-filters
+      - build-and-test
+      - adhoc:
+          filters:
+            branches:
+              only: /[A-Za-z]+-\d+-[A-Za-z0-9-]+/
+          requires:
+            - build-and-test
