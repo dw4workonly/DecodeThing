@@ -33,7 +33,7 @@ fastlane/README.md
 fastlane/build
 fastlane/report.xml
 fastlane/*_output
-
+output/
 
 # User-specific stuff:
 .idea/**/workspace.xml

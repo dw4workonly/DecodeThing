@@ -157,7 +157,7 @@ platform :ios do
       destination: destination,
       scheme: "DecoderThingTests",
       code_coverage: true,
-      output_directory: "fastlane/test_output",
+      output_directory: "output/test_output",
       result_bundle: true,
       skip_slack: true
     )
@@ -165,7 +165,7 @@ platform :ios do
 
   desc "Run simulator tests for DecoderThing iOS App"
   lane :test_ios_qe do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_VERSION"])
     device = ENV["DEVICE"]
     test_scheme = ENV["TEST_SCHEME"]
     test_plan = ENV["TEST_PLAN"]
@@ -173,7 +173,7 @@ platform :ios do
       device: device,
       scheme: test_scheme,
       code_coverage: true,
-      output_directory: "fastlane/test_output",
+      output_directory: "output/test_output",
       formatter: "xcpretty-json-formatter",
       skip_slack: true
     )
@@ -195,7 +195,7 @@ platform :ios do
 
   desc "Generate new localized screenshots for sFastIcon"
   lane :screenshots do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_VERSION"])
     devices = ENV["DEVICES"]
     capture_screenshots(
       devices: devices,
