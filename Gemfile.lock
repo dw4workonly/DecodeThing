@@ -294,8 +294,6 @@ GEM
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    psych (4.0.3)
-      stringio
     public_suffix (4.0.7)
     racc (1.6.0)
     rainbow (3.1.1)
@@ -364,7 +362,6 @@ GEM
       simplecov
     simplecov_json_formatter (0.1.4)
     socksify (1.7.1)
-    stringio (3.0.1)
     sysrandom (1.0.5)
     terminal-notifier (2.0.0)
     terminal-table (3.0.2)
@@ -415,11 +412,9 @@ DEPENDENCIES
   gitlab
   jenkins_api_client
   json
-  nokogiri
   octokit
   plist
   pry
-  psych
   rspec
   rspec_junit_formatter
   rubocop

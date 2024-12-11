@@ -1,4 +1,9 @@
-# .circleci/config.yml
+#  .circleci/config.yml
+#
+#   DecoderThing
+#   Created by Duncan Wallace 12/10/2024
+#   Copyright © 2024. Duncwa LLC.  All rights reserved
+
 version: 2.1
 jobs:
   build-and-test:

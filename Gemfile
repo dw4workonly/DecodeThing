@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
 #
 #   Gemfile
-#   sImageViewer
-#   Created by Duncan Wallace 09/08/2020
-#   Copyright © 2020. Duncwa LLC.  All rights reserved
+#   DecoderThing
+#   Created by Duncan Wallace 12/10/2024
+#   Copyright © 2024. Duncwa LLC.  All rights reserved
 
 # source 'https://github.com/danger'
 source 'https://rubygems.org'

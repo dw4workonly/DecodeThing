@@ -24,7 +24,7 @@ platform :ios do
       owner_type: "organization", # Default is user - set to organization for appcenter organizations
       app_name: ENV["APPCENTER_DEV_APP_NAME"],
       notify_testers: true, # Set to false if you don't want to notify testers of your new release (default: `false`)
-      file: "fastlane/build/FastImageViewer.ipa",
+      file: "fastlane/build/DecoderThing.ipa",
       build_number: ENV["APPCENTER_DISTRIBUTE_BUILD_NUMBER"],
       version: ENV["APPCENTER_DISTRIBUTE_VERSION"],
       app_platform: "ios",
@@ -41,7 +41,7 @@ platform :ios do
       owner_type: "organization", # Default is user - set to organization for appcenter organizations
       app_name: ENV["APPCENTER_RLS_APP_NAME"],
       notify_testers: true, # Set to false if you don't want to notify testers of your new release (default: `false`)
-      file: "fastlane/build/FastImageViewer.ipa",
+      file: "fastlane/build/DecoderThing.ipa",
       dsym: ENV["APPCENTER_DISTRIBUTE_DSYM"],
       build_number: ENV["APPCENTER_DISTRIBUTE_BUILD_NUMBER"],
       version: ENV["APPCENTER_DISTRIBUTE_VERSION"],
@@ -61,7 +61,7 @@ platform :ios do
       export_options: {
         method: "development",
         provisioningProfiles: {
-          "com.dw4workonly.fastimage" => "DEV_SwiftImageViewer"
+          "com.dw4workonly.fecoderthing" => "DEV_DecoderThing"
         }
       },
       include_bitcode: false,
@@ -84,7 +84,7 @@ platform :ios do
       export_options: {
         method: "app-store",
         provisioningProfiles: {
-          "com.dw4workonly.fastimage" => "DIS_SwiftImageViewer"
+          "com.dw4workonly.decoderthing" => "DIS_DecoderThing"
         }
       },
       include_bitcode: true,
@@ -128,7 +128,7 @@ platform :ios do
       in_house: false # optional but may be required if using match/sigh
     )
     deliver(
-      ipa: "fastlane/build/FastImageViewer.ipa",
+      ipa: "fastlane/build/DecoderThing.ipa",
       skip_screenshots: true,
       force: true,
       precheck_include_in_app_purchases: false,
@@ -151,7 +151,7 @@ platform :ios do
 
   desc "Run unit tests for DecoderThing iOS App"
   lane :test_ios_pra do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_VERSION"])
     destination = ENV["DESTINATION"]
     run_tests(
       destination: destination,
@@ -163,7 +163,7 @@ platform :ios do
     )
   end
 
-  desc "Run simulator tests for sFastIcon iOS App"
+  desc "Run simulator tests for DecoderThing iOS App"
   lane :test_ios_qe do
     xcodes(version: ENV["XCODE_VERSION"])
     device = ENV["DEVICE"]
@@ -189,8 +189,8 @@ platform :ios do
     ## Call inspection bulkextractor on *.ipa and dSYMS file
     sh 'echo $PWD'
     sh 'echo "Running Bulkextractor inspection"'
-    sh 'bulk_extractor -o build/output-ipa -R build/FastImageViewer.ipa'
-    sh 'bulk_extractor -o build/output-dsym -R build/FastImageViewer.app.dSYM.zip'
+    sh 'bulk_extractor -o build/output-ipa -R build/DecoderThing.ipa'
+    sh 'bulk_extractor -o build/output-dsym -R build/DecoderThing.app.dSYM.zip'
   end
 
   desc "Generate new localized screenshots for sFastIcon"
