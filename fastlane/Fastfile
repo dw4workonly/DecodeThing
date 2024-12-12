@@ -165,7 +165,7 @@ platform :ios do
   end
 
   desc "Run simulator tests for DecoderThing iOS App"
-  lane :test_ios_qe do
+  lane :test_ios_qa do
     xcode_select(ENV["XCODE_VERSION"])
     device = ENV["DEVICE"]
     test_scheme = ENV["TEST_SCHEME"]
