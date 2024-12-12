@@ -23,8 +23,9 @@ jobs:
           platform: "iOS"
           device: "iPhone 16 Pro Max"
       - checkout
-      - macos/switch-ruby:
-          version: 3.2.6
+      - run:
+          name: Set Ruby Version
+          command: echo "ruby-3.2.6" > ~/ruby-verison
       - run: bundle install
       - run:
           name: Fastlane
@@ -46,8 +47,9 @@ jobs:
           platform: "iOS"
           device: "iPhone 16 Pro Max"
       - checkout
-      - macos/switch-ruby:
-          version: 3.2.6
+      - run:
+          name: Set Ruby Version
+          command: echo "ruby-3.2.6" > ~/ruby-verison
       - run: bundle install
       - run:
           name: Fastlane
