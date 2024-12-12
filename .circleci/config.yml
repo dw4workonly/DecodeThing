@@ -44,6 +44,10 @@ jobs:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: qa
     steps:
+      - run:
+          name: Available Ruby Versions
+          command:  |
+            rbenv install --list-all
       - macos/preboot-simulator:
           version: "18.1"
           platform: "iOS"
@@ -62,7 +66,7 @@ jobs:
           path: output
 
 workflows:
-  build-test-adhoc:
+  build-test-qa:
     jobs:
       - build-and-test
       - qa:
