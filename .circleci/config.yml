@@ -31,7 +31,7 @@ jobs:
           name: Set Ruby Version
           command: |
             rbenv install 3.2.5
-            echo "ruby-3.2.5" > ~/ruby-verison
+            echo "ruby-3.2.5" > ~/.ruby-version
       - run: bundle install
       - run:
           name: Fastlane
@@ -57,7 +57,7 @@ jobs:
           name: Set Ruby Version
           command:  |
             rbenv install 3.2.5
-            echo "ruby-3.2.5" > ~/ruby-verison
+            echo "ruby-3.2.5" > ~/.ruby-version
       - run: bundle install
       - run:
           name: Fastlane
