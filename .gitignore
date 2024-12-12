@@ -33,6 +33,7 @@ fastlane/README.md
 fastlane/build
 fastlane/report.xml
 fastlane/*_output
+fastlane/temp
 output/
 
 # User-specific stuff:
