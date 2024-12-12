@@ -159,7 +159,8 @@ platform :ios do
       code_coverage: true,
       output_directory: "fastlane/test_output",
       result_bundle: true,
-      skip_slack: false
+      skip_slack: false,
+      buildlog_path: "fastlane/build"
     )
   end
 
@@ -175,7 +176,8 @@ platform :ios do
       code_coverage: true,
       output_directory: "fastlane/test_output",
       formatter: "xcpretty-json-formatter",
-      skip_slack: false
+      skip_slack: false,
+      buildlog_path: "fastlane/build"
     )
   end
 

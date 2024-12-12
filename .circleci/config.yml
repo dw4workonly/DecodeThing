@@ -5,6 +5,11 @@
 #   Copyright © 2024. Duncwa LLC.  All rights reserved
 
 version: 2.1
+
+# ...
+orbs:
+  macos: circleci/macos@2
+
 jobs:
   build-and-test:
     macos:
@@ -13,7 +18,13 @@ jobs:
       FL_OUTPUT_DIR: output
       FASTLANE_LANE: test
     steps:
+      - macos/preboot-simulator:
+          version: "18.1"
+          platform: "iOS"
+          device: "iPhone 16 Pro Max"
       - checkout
+      - macos/switch-ruby:
+          version: 3.2.6
       - run: bundle install
       - run:
           name: Fastlane
@@ -23,14 +34,20 @@ jobs:
       - store_test_results:
           path: output/scan
 
-  adhoc:
+  qa:
     macos:
       xcode: 16.1
     environment:
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: adhoc
+      FASTLANE_LANE: qa
     steps:
+      - macos/preboot-simulator:
+          version: "18.1"
+          platform: "iOS"
+          device: "iPhone 16 Pro Max"
       - checkout
+      - macos/switch-ruby:
+          version: 3.2.6
       - run: bundle install
       - run:
           name: Fastlane
@@ -42,7 +59,7 @@ workflows:
   build-test-adhoc:
     jobs:
       - build-and-test
-      - adhoc:
+      - qa:
           filters:
             branches:
               only: /[A-Za-z]+-\d+-[A-Za-z0-9-]+/
