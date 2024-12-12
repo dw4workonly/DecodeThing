@@ -25,7 +25,9 @@ jobs:
       - checkout
       - run:
           name: Set Ruby Version
-          command: echo "ruby-3.2.6" > ~/ruby-verison
+          command: |
+            rbenv install 3.2.6
+            echo "ruby-3.2.6" > ~/ruby-verison
       - run: bundle install
       - run:
           name: Fastlane
@@ -49,7 +51,9 @@ jobs:
       - checkout
       - run:
           name: Set Ruby Version
-          command: echo "ruby-3.2.6" > ~/ruby-verison
+          command:  |
+            rbenv install 3.2.6
+            echo "ruby-3.2.6" > ~/ruby-verison
       - run: bundle install
       - run:
           name: Fastlane
