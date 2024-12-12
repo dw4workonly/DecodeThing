@@ -31,8 +31,8 @@ module Fastlane
         }
         response = HTTParty.send(:get, url, request_payload)
 
-        file_dir = "fastlane/temp_output/tickets.json"
-        File.open(file_dir, 'w') { |file| file.write(response.json) }
+        file_dir = "fastlane/temp/tickets.json"
+        File.open(file_dir, 'w') { |file| file.write(response.parsed_response) }
         UI.message("Completed:  Tickets saved to file #{file_dir}.")
         # Actions.lane_context[SharedValues::JIRA_TICKETS_LIST_CUSTOM_VALUE] = "my_val"
       end
