@@ -8,6 +8,7 @@
 # source 'https://github.com/danger'
 source 'https://rubygems.org'
   gem 'octokit'
+  gem "jira-ruby"
   gem 'gitlab'
   gem 'aws-sdk-s3'
   gem 'fastlane'

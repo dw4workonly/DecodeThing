@@ -1,12 +1,17 @@
 #!/usr/bin/env groovy
 #
 #   Fastfile
-#   sImageViewer
-#   Created by Duncan Wallace 08/21/2020
-#   Copyright © 2020. Duncwa LLC.  All rights reserved
+#   DecoderThing
+#   Created by Duncan Wallace 12/08/24
+#   Copyright © 2024. Duncwa LLC.  All rights reserved
+
+
+require 'octokit'
+
 
 require_relative "functions/readable_time"
 require_relative "functions/build_number"
+require_relative "functions/get_jira_tickets"
 
 default_platform(:ios)
 platform :ios do
@@ -17,7 +22,7 @@ platform :ios do
 
   desc "Upload dsyms and ipa results from dev builds"
   lane :appcenter_upload_dev do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     appcenter_upload(
       api_token: ENV["APPCENTER_TOKEN_DLO"],
       owner_name: ENV["APPCENTER_ORG"],
@@ -34,7 +39,7 @@ platform :ios do
 
   desc "Upload dsyms and ipa results to AppCenter"
   lane :appcenter_upload_rls do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     appcenter_upload(
       api_token: ENV["APPCENTER_TOKEN_DLO"],
       owner_name: ENV["APPCENTER_ORG"],
@@ -52,7 +57,7 @@ platform :ios do
 
   desc "Generate Develop Builds"
   lane :generate_dev_ipa do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     build_app(
       codesigning_identity: "Apple Development",
       clean: true,
@@ -73,7 +78,7 @@ platform :ios do
 
   desc "Generate Release Builds"
   lane :generate_rls_ipa do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     destination = ENV["DESTINATION_RELEASE"]
     build_app(
       codesigning_identity: "Apple Distribution",
@@ -109,7 +114,7 @@ platform :ios do
 
   desc "API Key Using JWT authorization for upload to AppStore"
   lane :upload_to_appstore do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     build_number = build_number()
     puts "Build number is: #{build_number}"
     api_key = app_store_connect_api_key(
@@ -151,7 +156,7 @@ platform :ios do
 
   desc "Run unit tests for DecoderThing iOS App"
   lane :test_ios_pra do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     destination = ENV["DESTINATION"]
     run_tests(
       destination: destination,
@@ -165,7 +170,7 @@ platform :ios do
 
   desc "Run simulator tests for sFastIcon iOS App"
   lane :test_ios_qe do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     device = ENV["DEVICE"]
     test_scheme = ENV["TEST_SCHEME"]
     test_plan = ENV["TEST_PLAN"]
@@ -195,7 +200,7 @@ platform :ios do
 
   desc "Generate new localized screenshots for sFastIcon"
   lane :screenshots do
-    xcodes(version: ENV["XCODE_VERSION"])
+    xcode_select(ENV["XCODE_SELECT"])
     devices = ENV["DEVICES"]
     capture_screenshots(
       devices: devices,
@@ -401,5 +406,21 @@ platform :ios do
       success: success,
       default_payloads: []
     )
+  end
+
+  ##################################################
+  #  Oktakit Release Processing Lanes
+  ##################################################
+  desc "Run Get all pull requests"
+  lane :open_pull_requests do |options|
+    repo_name = ENV["REPOSITORY_NAME"]
+    client = Octokit::Client.new(access_token: ENV["GITHUB_PAT_TOKEN"])
+    response = client.pull_requests(repo_name, :state => 'open')
+    puts "Open pull requests in repo: #{repo_name} are #{response}."
+  end
+
+  desc "Run Get list of jira tickets"
+  lane :jira_tickets do |options|
+    get_jira_tickets()
   end
 end
