@@ -21,7 +21,7 @@ module Fastlane
             :context_path       => ''
         }
 
-        url = repository_url+"#{"
+        url = repository_url+"string-here"
         request_payload = {
             headers: {
                 "Authorization" => "Basic #{api_token}",

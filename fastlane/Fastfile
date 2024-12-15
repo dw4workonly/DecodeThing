@@ -162,10 +162,7 @@ platform :ios do
       skip_slack: false,
       buildlog_path: "fastlane/build"
     )
-    post_pra_ios_slack_message(
-      parameter1: '1', 
-      parameter2: '2'
-    )
+    # post_pra_ios_slack_message()
   end
 
   desc "Run simulator tests for DecoderThing iOS App"
@@ -183,11 +180,7 @@ platform :ios do
       skip_slack: false,
       buildlog_path: "fastlane/build"
     )
-    post_qe_ios_slack_message(
-        parameter1: '1', 
-        parameter2: '2'
-      )
-    )
+    # post_qe_ios_slack_message()
   end
 
   ##################################################
@@ -413,6 +406,14 @@ platform :ios do
     )
   end
 
+  desc "Run Slack Testing Naked"
+  lane :slack_naked do
+    slack(
+      channel: ENV["SLACK_CHANNEL"],
+      message: "Quick Test DecoderThing CLI"
+    )
+  end
+  
   ##################################################
   #  Release Processing Lanes
   ##################################################
