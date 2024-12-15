@@ -162,7 +162,10 @@ platform :ios do
       skip_slack: false,
       buildlog_path: "fastlane/build"
     )
-    post_pra_ios_slack_message
+    post_pra_ios_slack_message(
+      parameter1: '1', 
+      parameter2: '2'
+    )
   end
 
   desc "Run simulator tests for DecoderThing iOS App"
@@ -180,7 +183,11 @@ platform :ios do
       skip_slack: false,
       buildlog_path: "fastlane/build"
     )
-    post_qe_ios_slack_message
+    post_qe_ios_slack_message(
+        parameter1: '1', 
+        parameter2: '2'
+      )
+    )
   end
 
   ##################################################
@@ -242,13 +249,12 @@ platform :ios do
   end
 
   desc "Run Slack reporting for PRA"
-  lane :post_pra_slack_message do |options|
+  lane :post_pra_ios_slack_message do |options|
     build_url = ENV["BUILD_URL"]
     pr_url = ENV["PR_URL"]
     job_base_name = ENV["JOB_BASE_NAME"]
     build_id = ENV["BUILD_ID"]
-    pr_url = ENV["PR_URL"]
-    change_id = ENV["CHANGE_ID"]
+    issue_id = ENV["ISSUE_ID"]
     run_time = to_clock(options[:run_time])
     status = options[:status]
     result = status == "SUCCESS" ? " 🚀 finished in" : " 💣💥failed after "
@@ -408,7 +414,7 @@ platform :ios do
   end
 
   ##################################################
-  #  Oktakit Release Processing Lanes
+  #  Release Processing Lanes
   ##################################################
   desc "Run Get all pull requests"
   lane :open_pull_requests do |options|
@@ -423,4 +429,11 @@ platform :ios do
     puts "Tickets in Project DT."
     jira_tickets_list()
   end
+
+  desc "Run Get list tags in repository"
+  lane :repository_tags do |options|
+    puts "Tags in repository #{repository_url}."
+    create_retrieve_display_tags()
+  end
+
 end

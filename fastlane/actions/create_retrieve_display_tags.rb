@@ -11,9 +11,8 @@ module Fastlane
         # fastlane will take care of reading in the parameter and fetching the environment variable:
      
 
-        api_token = ENV["DW4WORKONLY_API_TOKEN_BASE64"]
+        api_token = ENV["GITHUB_API_TOKEN"]
        
-        project_id = ENV["PROJECT_ID"]
         repository_url = ENV["REPOSITORY_URL"]
 
         UI.message("Create Retrieve Display Tags from repository #{repo}.")
@@ -22,7 +21,7 @@ module Fastlane
             :context_path       => ''
         }
 
-        url = "https://dw4workonly.atlassian.net/rest/api/3/search?jql=project=#{project_id}%20AND%20status="+"#{ticket_status}"
+        url = repository_url+"#{"
         request_payload = {
             headers: {
                 "Authorization" => "Basic #{api_token}",
@@ -34,7 +33,7 @@ module Fastlane
         file_dir = "fastlane/temp/tickets.json"
         File.open(file_dir, 'w') { |file| file.write(response.parsed_response) }
         UI.message("Completed:  Tickets saved to file #{file_dir}.")
-        # Actions.lane_context[SharedValues::JIRA_TICKETS_LIST_CUSTOM_VALUE] = "my_val"
+        # Actions.lane_context[SharedValues::CURRENT_TAG_CUSTOM_VALUE] = "my_val"
       end
 
       #####################################################
@@ -58,17 +57,17 @@ module Fastlane
         [
           FastlaneCore::ConfigItem.new(key: :api_token,
                                        # The name of the environment variable
-                                       env_name: 'FL_JIRA_TICKETS_LIST_API_TOKEN',
+                                       env_name: 'GITHUB_API_TOKEN',
                                        # a short description of this parameter
-                                       description: 'API Token for JiraTicketsListAction',
+                                       description: 'API Token for Github API',
                                        verify_block: proc do |value|
                                          unless value && !value.empty?
-                                           UI.user_error!("No API token for JiraTicketsListAction given, pass using `api_token: 'token'`")
+                                           UI.user_error!("No API token for Github given, pass using `api_token: 'token'`")
                                          end
                                          # UI.user_error!("Couldn't find file at path '#{value}'") unless File.exist?(value)
                                        end),
           FastlaneCore::ConfigItem.new(key: :development,
-                                       env_name: 'FL_JIRA_TICKETS_LIST_DEVELOPMENT',
+                                       env_name: 'GITHUB_API_TOKEN_DEVELOPMENT',
                                        description: 'Create a development certificate instead of a distribution one',
                                        # true: verifies the input is a string, false: every kind of value
                                        is_string: false,
@@ -81,7 +80,7 @@ module Fastlane
         # Define the shared values you are going to provide
         # Example
         [
-          ['JIRA_TICKETS_LIST_CUSTOM_VALUE', 'A description of what this value contains']
+          ['CURRENT_TAG_CUSTOM_VALUE', 'A description of what this value contains']
         ]
       end
 
