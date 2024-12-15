@@ -40,6 +40,28 @@ jobs:
       - store_test_results:
           path: output/scan
 
+  pra:
+    macos:
+      xcode: 16.1
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: pra
+    steps:
+      - macos/preboot-simulator:
+          version: "18.1"
+          platform: "iOS"
+          device: "iPhone 16 Pro Max"
+      - checkout
+      - run:
+          name: Set Ruby Version
+          command:  |
+            echo "ruby-3.2.5" > .ruby-version
+      - run: bundle install
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane test_ios_pra
+      - store_artifacts:
+          path: output
   qa:
     macos:
       xcode: 16.1
@@ -64,12 +86,21 @@ jobs:
           path: output
 
 workflows:
+  build-test-pra:
+    jobs:
+      - build-and-test
+      - pra:
+          filters:
+            branches:
+              only: /[A-Za-z]+-\d+-[A-Za-z0-9-]+/
+          requires:
+            - build-and-test
   build-test-qa:
     jobs:
       - build-and-test
       - qa:
           filters:
             branches:
-              only: /[A-Za-z]+-\d+-[A-Za-z0-9-]+/
+              only: /QA-[A-Za-z]+-\d+-[A-Za-z0-9-]+/
           requires:
             - build-and-test
