@@ -401,7 +401,8 @@ platform :ios do
       message: message,
       username: "cicdbuild",
       success: success,
-      default_payloads: []
+      default_payloads: [],
+      slack_url: "https://duncwallc.slack.com/archives/C0199R42DUM"
     )
   end
 
