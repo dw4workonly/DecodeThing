@@ -159,10 +159,10 @@ platform :ios do
       code_coverage: true,
       output_directory: "fastlane/test_output",
       result_bundle: true,
-      skip_slack: false,
+      skip_slack: true,
       buildlog_path: "fastlane/build"
     )
-    # post_pra_ios_slack_message()
+    post_pra_ios_slack_message()
   end
 
   desc "Run simulator tests for DecoderThing iOS App"
@@ -177,10 +177,10 @@ platform :ios do
       code_coverage: true,
       output_directory: "fastlane/test_output",
       formatter: "xcpretty-json-formatter",
-      skip_slack: false,
+      skip_slack: true,
       buildlog_path: "fastlane/build"
     )
-    # post_qe_ios_slack_message()
+    post_qe_ios_slack_message()
   end
 
   ##################################################
@@ -243,11 +243,11 @@ platform :ios do
 
   desc "Run Slack reporting for PRA"
   lane :post_pra_ios_slack_message do |options|
-    build_url = ENV["BUILD_URL"]
-    pr_url = ENV["PR_URL"]
-    job_base_name = ENV["JOB_BASE_NAME"]
-    build_id = ENV["BUILD_ID"]
-    issue_id = ENV["ISSUE_ID"]
+    build_url = ENV["CIRCLE_BUILD_URL"]
+    pr_url = ENV["PR_URL"] #TODO Update PR_URL with variable name
+    job_base_name = ENV["CIRCLE_JOB"]
+    build_id = ENV["CIRCLE_BUILD_NUM"]
+    issue_id = ENV["CIRCLE_BRANCH"]
     run_time = to_clock(options[:run_time])
     status = options[:status]
     result = status == "SUCCESS" ? " 🚀 finished in" : " 💣💥failed after "
@@ -263,9 +263,9 @@ platform :ios do
 
   desc "Run Slack reporting for QE"
   lane :post_qe_ios_slack_message do |options|
-    build_url = ENV["BUILD_URL"]
-    job_base_name = ENV["JOB_BASE_NAME"]
-    build_id = ENV["BUILD_ID"]
+    build_url = ENV["CIRCLE_BUILD_URL"]
+    job_base_name = ENV["CIRCLE_JOB"]
+    build_id = ENV["CIRCLE_BUILD_NUM"]
     pwd = ENV["PWD"]
     run_time = to_clock(options[:run_time])
     status = options[:status]
@@ -409,7 +409,7 @@ platform :ios do
   desc "Run Slack Testing Naked"
   lane :slack_naked do
     slack(
-      channel: ENV["SLACK_CHANNEL"],
+      channel: "#software",
       message: "Quick Test DecoderThing CLI"
     )
   end
@@ -419,10 +419,8 @@ platform :ios do
   ##################################################
   desc "Run Get all pull requests"
   lane :open_pull_requests do |options|
-    repo_name = ENV["REPOSITORY_NAME"]
-    client = Octokit::Client.new(access_token: ENV["GITHUB_PAT_TOKEN"])
-    response = client.pull_requests(repo_name, :state => 'open')
-    puts "Open pull requests in repo: #{repo_name} are #{response}."
+    puts "Pull Requests in Repository #{repo_name}"
+    github_pull_requests_list()
   end
 
   desc "Run Get list of jira tickets"
@@ -433,7 +431,7 @@ platform :ios do
 
   desc "Run Get list tags in repository"
   lane :repository_tags do |options|
-    puts "Tags in repository #{repository_url}."
+    puts "Tags in repository #{repo_url}."
     create_retrieve_display_tags()
   end
 
