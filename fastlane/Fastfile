@@ -162,6 +162,7 @@ platform :ios do
       skip_slack: false,
       buildlog_path: "fastlane/build"
     )
+    post_pra_ios_slack_message
   end
 
   desc "Run simulator tests for DecoderThing iOS App"
@@ -179,6 +180,7 @@ platform :ios do
       skip_slack: false,
       buildlog_path: "fastlane/build"
     )
+    post_qe_ios_slack_message
   end
 
   ##################################################
@@ -401,8 +403,7 @@ platform :ios do
       message: message,
       username: "cicdbuild",
       success: success,
-      default_payloads: [],
-      slack_url: "https://duncwallc.slack.com/archives/CK478HWHX"
+      default_payloads: []
     )
   end
 
