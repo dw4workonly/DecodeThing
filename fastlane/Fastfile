@@ -430,18 +430,14 @@ platform :ios do
   desc "Run Get list tags in repository"
   lane :repository_tags do |options|
     puts "Tags in repository #{ENV["REPOSITORY_URL"]}."
-    # create_retrieve_display_tags()
+    create_retrieve_display_tags()
+    # sh("""git describe --tags `git rev-list --tags --max-count=1` > temp/tags.txt""")
   end
-
-    ##################################################
-  #  Oktakit Release Processing Lanes
-  ##################################################
-  desc "Run Get all pull requests"
-  lane :pull_requests do |options|
-    repo_name = ENV["REPOSITORY_NAME"]
-    client = Octokit::Client.new(access_token: ENV["GITHUB_PAT_TOKEN"])
-    response = client.pull_requests(repo_name, :state => 'open')
-    puts "Open pull requests in repo: #{repo_name} are #{response}."
+  
+  desc "Run Get list tags in repository"
+  lane :repository_test do |options|
+    puts "Tags in repository #{ENV["REPOSITORY_URL"]}."
+    sh("git describe --tags")
+    sh("""git describe --tags `git rev-list --tags --max-count=1` > temp/tags.txt""")
   end
-
 end

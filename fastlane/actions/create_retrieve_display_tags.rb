@@ -3,7 +3,6 @@ require 'httparty'
 module Fastlane
   module Actions
     module SharedValues
-      CURRENT_TAG_CUSTOM_VALUE = :CURRENT_TAG_CUSTOM_VALUE
     end
 
     class CreateRetrieveDisplayTagsAction < Action
@@ -11,28 +10,27 @@ module Fastlane
         # fastlane will take care of reading in the parameter and fetching the environment variable:
      
 
-        api_token = ENV["GITHUB_API_TOKEN"]
+        api_token = ENV["GITHUB_PAT_TOKEN"]
        
-        repository_url = ENV["REPOSITORY_URL"]
+        repository_url = "https://api.github.com/repos/dw4workonly/DecoderThing/tags/protection"
 
-        UI.message("Create Retrieve Display Tags from repository #{repo}.")
-        options = {
-            :site               => repository_url+'/rest/api/3',
-            :context_path       => ''
-        }
+        UI.message("Create Retrieve Display Tags from repository #{repository_url}.")
+  
+        sh("""git describe --tags `git rev-list --tags --max-count=1` > fastlane/temp/tags.txt""")
+  
+        #sh("curl -L -H", "Accept: application/vnd.github+json", "-H 'Authorization: Bearer $GITHUB_PAT_TOKEN'",  "-H 'X-GitHub-Api-Version: 2022-11-28'", "https://api.github.com/repos/dw4workonly/DecoderThing/tags")
+        # url = repository_url
+        # request_payload = {
+        #     headers: {
+        #         "Authorization" => "Basic #{api_token}",
+        #         "Content-Type"  => "application/json"
+        #     }
+        # }
+        # response = HTTParty.send(:get, url, request_payload)
 
-        url = repository_url+"string-here"
-        request_payload = {
-            headers: {
-                "Authorization" => "Basic #{api_token}",
-                "Content-Type"  => "application/json"
-            }
-        }
-        response = HTTParty.send(:get, url, request_payload)
-
-        file_dir = "fastlane/temp/tickets.json"
-        File.open(file_dir, 'w') { |file| file.write(response.parsed_response) }
-        UI.message("Completed:  Tickets saved to file #{file_dir}.")
+        # file_dir = "fastlane/temp/tags.json"
+        # File.open(file_dir, 'w') { |file| file.write(response.parsed_response) }
+        # UI.message("Completed:  Tickets saved to file #{file_dir}.")
         # Actions.lane_context[SharedValues::CURRENT_TAG_CUSTOM_VALUE] = "my_val"
       end
 
