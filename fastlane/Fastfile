@@ -240,18 +240,17 @@ platform :ios do
   end
 
   desc "Run Slack reporting for PRA"
-  lane :post_pra_slack_message do |options|
-    build_url = ENV["BUILD_URL"]
-    pr_url = ENV["PR_URL"]
-    job_base_name = ENV["JOB_BASE_NAME"]
-    build_id = ENV["BUILD_ID"]
-    pr_url = ENV["PR_URL"]
-    change_id = ENV["CHANGE_ID"]
+  lane :post_pra_ios_slack_message do |options|
+    build_url = ENV["CIRCLE_BUILD_URL"]
+    pr_url = ENV["PR_URL"] #TODO Update PR_URL with variable name
+    job_base_name = ENV["CIRCLE_JOB"]
+    build_id = ENV["CIRCLE_BUILD_NUM"]
+    issue_id = ENV["CIRCLE_BRANCH"]
     run_time = to_clock(options[:run_time])
     status = options[:status]
     result = status == "SUCCESS" ? " 🚀 finished in" : " 💣💥failed after "
     success = status == "SUCCESS" ? true : false
-    message = "*#{status} <#{pr_url}|PR-#{change_id}> - - <#{build_url}|#{job_base_name} Build ##{build_id}> #{result} #{run_time} <#{build_url+'artifact/fastlane/test_output/report.html'}|#{'Results'}> *"
+    message = "*#{status} <#{pr_url}|PR-#{issue_id}> - - <#{build_url}|#{job_base_name} Build ##{build_id}> #{result} #{run_time} <#{build_url+'artifact/fastlane/test_output/report.html'}|#{'Results'}> *"
     slack(
       channel: ENV["SLACK_CHANNEL"],
       message: message,
@@ -262,9 +261,9 @@ platform :ios do
 
   desc "Run Slack reporting for QE"
   lane :post_qe_ios_slack_message do |options|
-    build_url = ENV["BUILD_URL"]
-    job_base_name = ENV["JOB_BASE_NAME"]
-    build_id = ENV["BUILD_ID"]
+    build_url = ENV["CIRCLE_BUILD_URL"]
+    job_base_name = ENV["CIRCLE_JOB"]
+    build_id = ENV["CIRCLE_BUILD_NUM"]
     pwd = ENV["PWD"]
     run_time = to_clock(options[:run_time])
     status = options[:status]
@@ -401,25 +400,44 @@ platform :ios do
       message: message,
       username: "cicdbuild",
       success: success,
-      default_payloads: [],
-      slack_url: "https://duncwallc.slack.com/archives/C0199R42DUM"
+      default_payloads: []
     )
   end
 
+  desc "Run Slack Testing Naked"
+  lane :slack_naked do
+    slack(
+      channel: "#software",
+      message: "Quick Test DecoderThing CLI"
+    )
+  end
+  
   ##################################################
-  #  Oktakit Release Processing Lanes
+  #  Release Processing Lanes
   ##################################################
   desc "Run Get all pull requests"
   lane :open_pull_requests do |options|
-    repo_name = ENV["REPOSITORY_NAME"]
-    client = Octokit::Client.new(access_token: ENV["GITHUB_PAT_TOKEN"])
-    response = client.pull_requests(repo_name, :state => 'open')
-    puts "Open pull requests in repo: #{repo_name} are #{response}."
+    puts "Pull Requests in Repository #{ENV["REPOSITORY_NAME"]}"
+    github_pull_requests_list()
   end
 
   desc "Run Get list of jira tickets"
   lane :jira_tickets do |options|
     puts "Tickets in Project DT."
     jira_tickets_list()
+  end
+
+  desc "Run Get list tags in repository"
+  lane :repository_tags do |options|
+    puts "Tags in repository #{ENV["REPOSITORY_URL"]}."
+    create_retrieve_display_tags()
+    # sh("""git describe --tags `git rev-list --tags --max-count=1` > temp/tags.txt""")
+  end
+  
+  desc "Run Get list tags in repository"
+  lane :repository_test do |options|
+    puts "Tags in repository #{ENV["REPOSITORY_URL"]}."
+    sh("git describe --tags")
+    sh("""git describe --tags `git rev-list --tags --max-count=1` > temp/tags.txt""")
   end
 end
