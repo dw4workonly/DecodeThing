@@ -159,10 +159,9 @@ platform :ios do
       code_coverage: true,
       output_directory: "fastlane/test_output",
       result_bundle: true,
-      skip_slack: true,
+      skip_slack: false,
       buildlog_path: "fastlane/build"
     )
-    post_pra_ios_slack_message()
   end
 
   desc "Run simulator tests for DecoderThing iOS App"
@@ -177,10 +176,9 @@ platform :ios do
       code_coverage: true,
       output_directory: "fastlane/test_output",
       formatter: "xcpretty-json-formatter",
-      skip_slack: true,
+      skip_slack: false,
       buildlog_path: "fastlane/build"
     )
-    post_qe_ios_slack_message()
   end
 
   ##################################################
